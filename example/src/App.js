@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { useMyHook } from 'use-delayed-loading'
+import { useDelayedLoading } from 'use-delayed-loading'
 
 const App = () => {
-  const example = useMyHook()
+  const [loading, setLoading] = useDelayedLoading(true);
+  const loadDataFromApi = async () => {
+
+    try{
+      setLoading(true);
+      const result = await fetch('https://github.com/miika1006/use-delayed-loading');
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+  useEffect(() => loadDataFromApi(),[]);
   return (
-    <div>
-      {example}
-    </div>
+    loading ? "Loading" : "Hello there"
   )
 }
 export default App
