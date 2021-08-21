@@ -41,7 +41,7 @@ export const MyComponent: React.FC = () => {
       ...
     }
     finally{
-      setLoading(true);
+      setLoading(false);
     }
   }
   return loading ? "Loading" : "Hello there";
