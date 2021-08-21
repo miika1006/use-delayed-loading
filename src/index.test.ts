@@ -1,4 +1,4 @@
-import { useMyHook } from './'
+import { useDelayedLoading } from './'
 import { renderHook, act } from "@testing-library/react-hooks";
 
 // mock timer using jest
@@ -6,24 +6,31 @@ jest.useFakeTimers();
 
 describe('useMyHook', () => {
   it('updates every second', () => {
-    const { result } = renderHook(() => useMyHook());
+    const { result } = renderHook(() => useDelayedLoading(false, 500));
+    const [, setLoading] = result.current;
 
-    expect(result.current).toBe(0);
+    expect(result.current[0]).toBe(false);
 
-    // Fast-forward 1sec
     act(() => {
-      jest.advanceTimersByTime(1000);
+      setLoading(true);
     });
 
-    // Check after total 1 sec
-    expect(result.current).toBe(1);
+    //Sould stay false
+    expect(result.current[0]).toBe(false);
 
-    // Fast-forward 1 more sec
+    // Fast-forward 600,  > 500
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(600);
     });
+    
+    // Check loading, should now be true
+    expect(result.current[0]).toBe(true);
 
-    // Check after total 2 sec
-    expect(result.current).toBe(2);
+    act(() => {
+      setLoading(false);
+      jest.advanceTimersByTime(1);
+    });
+    //Should immediatelly be false
+    expect(result.current[0]).toBe(false);
   })
 })
