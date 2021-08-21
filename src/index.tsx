@@ -31,6 +31,7 @@ export const useDelayedLoading = (
   const [delayedLoading, setDelayedLoading] = useState<boolean>(value);
   const loadTimeoutId = useRef<null | number>(null);
 
+  console.log("loading",loading);
   useEffect(() => {
     if (loadTimeoutId.current != null) {
       window.clearTimeout(loadTimeoutId.current);
