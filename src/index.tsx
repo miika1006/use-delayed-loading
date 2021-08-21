@@ -1,23 +1,49 @@
-import * as React from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 
-export const useMyHook = () => {
-  let [{
-    counter
-  }, setState] = React.useState<{
-    counter: number;
-  }>({
-    counter: 0
-  });
+/**
+ * Delayed loading hook
+ * @param value original value if loading or not
+ * @param delay delay in milliseconds until loading is set to true
+ * @returns [loading:true|false, setLoading value]
+ *
+ * @example
+ * import { useDelayedLoading } from "./useDelayedLoading";
+ * export const MyComponent: React.FC = () => {
+ *   const [loading, setLoading] = useDelayedLoading(true);
+ *   const loadDataFromApi = async () => {
+ *    try{
+ *      setLoading(true);
+ *      const result = await fetch(...);
+ *      ...
+ *    }
+ *    finally{
+ *      setLoading(true);
+ *    }
+ *   }
+ *   return loading ? "Loading" : "Hello there";
+ * }
+ */
+export const useDelayedLoading = (
+  value: boolean = false,
+  delay: number = 500
+): [ boolean, Dispatch<SetStateAction<boolean>>] => {
+  const [loading, setLoading] = useState<boolean>(value);
+  const [delayedLoading, setDelayedLoading] = useState<boolean>(value);
+  const loadTimeoutId = useRef<null | number>(null);
 
-  React.useEffect(() => {
-    let interval = window.setInterval(() => {
-      counter++;
-      setState({counter})
-    }, 1000)
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, []);
+  useEffect(() => {
+    if (loadTimeoutId.current != null) {
+      window.clearTimeout(loadTimeoutId.current);
+      loadTimeoutId.current = null;
+    }
+    if (loading === false) setDelayedLoading(false);
+    else {
+      loadTimeoutId.current = window.setTimeout(
+        () => setDelayedLoading(true),
+        delay
+      );
+    }
+  }, [delay, loading]);
 
-  return counter;
+  return [delayedLoading, setLoading];
 };
