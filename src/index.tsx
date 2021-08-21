@@ -17,7 +17,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
  *      ...
  *    }
  *    finally{
- *      setLoading(true);
+ *      setLoading(false);
  *    }
  *   }
  *   return loading ? "Loading" : "Hello there";
