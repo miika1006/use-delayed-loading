@@ -9,7 +9,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
  * @example
  * import { useDelayedLoading } from "use-delayed-loading";
  * export const MyComponent: React.FC = () => {
- *   const [loading, setLoading] = useDelayedLoading(true);
+ *   const [loading, setLoading] = useDelayedLoading(false);
  *   const loadDataFromApi = async () => {
  *    try{
  *      setLoading(true);
