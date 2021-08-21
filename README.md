@@ -29,7 +29,7 @@ yarn add use-delayed-loading
 
 ```tsx
 
-import { useDelayedLoading } from "./useDelayedLoading";
+import { useDelayedLoading } from "use-delayed-loading";
 
 export const MyComponent: React.FC = () => {
   const [loading, setLoading] = useDelayedLoading(true);

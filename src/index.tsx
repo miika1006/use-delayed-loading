@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
  * @returns [loading:true|false, setLoading value]
  *
  * @example
- * import { useDelayedLoading } from "./useDelayedLoading";
+ * import { useDelayedLoading } from "use-delayed-loading";
  * export const MyComponent: React.FC = () => {
  *   const [loading, setLoading] = useDelayedLoading(true);
  *   const loadDataFromApi = async () => {
@@ -31,7 +31,6 @@ export const useDelayedLoading = (
   const [delayedLoading, setDelayedLoading] = useState<boolean>(value);
   const loadTimeoutId = useRef<null | number>(null);
 
-  console.log("loading",loading);
   useEffect(() => {
     if (loadTimeoutId.current != null) {
       window.clearTimeout(loadTimeoutId.current);
