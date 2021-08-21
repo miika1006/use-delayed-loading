@@ -1,36 +1,58 @@
 # use-delayed-loading
 
-> Set loading &#x3D; true to show loader, but with a delay.
+> Custom React Hook that will set loading &#x3D; true (fe. to show loader), but with a delay.
 
 [![NPM](https://img.shields.io/npm/v/use-delayed-loading.svg)](https://www.npmjs.com/package/use-delayed-loading) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
+When you have a random delay in a some function, for example when fetching data from server.
+The function can run for 10 seconds or it might finish immediatelly. 
+When that happens, you don't want to flicker a loader in your page.
+Now, there are probably many solutions to this, but this is one lazy one.
+
+Did this to test creating custom hook and publishing it to npm.
+
+Used ``npx create-react-hook`` with typescript and yarn.
+Created my hook, and then published with npm. 
 
 ## Install
 
 ```bash
 npm install --save use-delayed-loading
 ```
+or
+```bash
+yarn add use-delayed-loading
+```
 
 ## Usage
 
 ```tsx
-import * as React from 'react'
 
-import { useMyHook } from 'use-delayed-loading'
+import { useDelayedLoading } from "./useDelayedLoading";
 
-const Example = () => {
-  const example = useMyHook()
-  return (
-    <div>
-      {example}
-    </div>
-  )
+export const MyComponent: React.FC = () => {
+  const [loading, setLoading] = useDelayedLoading(true);
+  const loadDataFromApi = async () => {
+
+    try{
+      setLoading(true);
+      const result = await fetch(...);
+      ...
+    }
+    finally{
+      setLoading(true);
+    }
+  }
+  return loading ? "Loading" : "Hello there";
 }
+
 ```
 
 ## License
 
-MIT © [miika1006](https://github.com/miika1006)
+MIT © Miika Mehtälä / [miika1006](https://github.com/miika1006)
 
 ---
 
-This hook is created using [create-react-hook](https://github.com/hermanya/create-react-hook).
+This hook is created using [create-react-hook](https://github.com/hermanya/create-react-hook) with typescript and yarn.
