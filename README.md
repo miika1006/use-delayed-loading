@@ -51,6 +51,13 @@ export const MyComponent: React.FC = () => {
 
 ```
 
+You can specify the delay yourself with a delay parameter that is 500 milliseconds by default.
+
+```tsx
+//Change delay to 1 second
+const [loading, setLoading] = useDelayedLoading(false, 1000);
+```
+
 ## License
 
 MIT © Miika Mehtälä / [miika1006](https://github.com/miika1006)
