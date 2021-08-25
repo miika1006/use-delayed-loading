@@ -1,7 +1,7 @@
 {
   "name": "use-delayed-loading",
   "version": "1.0.14",
-  "description": "Set loading &#x3D; true to show loader, but with a delay.",
+  "description": "Set loading=true to show loader, but with a delay.",
   "author": "miika1006",
   "license": "MIT",
   "repository": "miika1006/use-delayed-loading",
