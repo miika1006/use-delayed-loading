@@ -4,7 +4,10 @@
 	"description": "Set loading to true to show loader, but with a delay.",
 	"author": "miika1006",
 	"license": "MIT",
-	"repository": "miika1006/use-delayed-loading",
+	"repository": {
+		"url": "https://github.com/miika1006/use-delayed-loading.git",
+		"type": "git"
+	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"module": "dist/index.es.js",
