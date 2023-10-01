@@ -33,7 +33,7 @@ export default {
 					declaration: true,
 				},
 			},
-			rollupCommonJSResolveHack: true,
+			rollupCommonJSResolveHack: false,
 			clean: true,
 		}),
 		commonjs(),
