@@ -24,26 +24,33 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
  * }
  */
 export const useDelayedLoading = (
-  value: boolean = false,
-  delay: number = 500
-): [ boolean, Dispatch<SetStateAction<boolean>>] => {
-  const [loading, setLoading] = useState<boolean>(value);
-  const [delayedLoading, setDelayedLoading] = useState<boolean>(value);
-  const loadTimeoutId = useRef<null | number>(null);
+	value: boolean = false,
+	delay: number = 500
+): [boolean, Dispatch<SetStateAction<boolean>>] => {
+	const [loading, setLoading] = useState<boolean>(value);
+	const [delayedLoading, setDelayedLoading] = useState<boolean>(value);
+	const loadTimeoutId = useRef<null | number>(null);
 
-  useEffect(() => {
-    if (loadTimeoutId.current != null) {
-      window.clearTimeout(loadTimeoutId.current);
-      loadTimeoutId.current = null;
-    }
-    if (loading === false) setDelayedLoading(false);
-    else {
-      loadTimeoutId.current = window.setTimeout(
-        () => setDelayedLoading(true),
-        delay
-      );
-    }
-  }, [delay, loading]);
+	const clearLoadTimeout = () => {
+		if (loadTimeoutId.current != null) {
+			window.clearTimeout(loadTimeoutId.current);
+			loadTimeoutId.current = null;
+		}
+	};
+	useEffect(() => {
+		clearLoadTimeout();
+		if (loading === false) setDelayedLoading(false);
+		else {
+			loadTimeoutId.current = window.setTimeout(
+				() => setDelayedLoading(true),
+				delay
+			);
+		}
 
-  return [delayedLoading, setLoading];
+		return () => {
+			clearLoadTimeout();
+		};
+	}, [delay, loading]);
+
+	return [delayedLoading, setLoading];
 };
