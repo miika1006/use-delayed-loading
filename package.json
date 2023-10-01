@@ -1,6 +1,6 @@
 {
 	"name": "use-delayed-loading",
-	"version": "1.0.15",
+	"version": "1.0.17",
 	"description": "Set loading to true to show loader, but with a delay.",
 	"author": "miika1006",
 	"license": "MIT",
